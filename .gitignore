@@ -1,0 +1,7 @@
+.vscode
+arcade
+*.o
+*.so
+test
+test.txt
+a.out
