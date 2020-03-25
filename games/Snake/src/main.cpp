@@ -7,6 +7,7 @@
 
 #include <dlfcn.h>
 #include "Snake.hpp"
+#include <unistd.h>
 
 using IGraphicsCreator = IGraphics *(*)(void);
 using IGraphicsDestroyer = void (*)(IGraphics *);
@@ -51,6 +52,42 @@ int main(void)
         dlclose(gameHandle);
         return (84);
     }
+
+
+
+
+
+
+
+    // const std::vector<InitTab> tabInit({InitTab(' ', 0, 0, "none.png"), InitTab('#', 2, 2, "none.png")});
+    // std::vector<std::vector<char>> map;
+    // for (int i = 0; i != 10; i++) {
+    //     std::vector<char> map_bis;
+    //     for (int j = 0; j != 10; j++) {
+    //         map_bis.push_back('#');
+    //     }
+    //     map.push_back(map_bis);
+    // }
+    // graphicClass = createIGraphics();
+    // gameClass = createIGames();
+    // graphicClass->init(tabInit);
+    // do {
+    //     graphicClass->displayGame(map);
+    // } while (graphicClass->getInput() != EXIT);
+
+    // destroyIGames(gameClass);
+    // destroyIGraphics(graphicClass);
+    // dlclose(graphicHandle);
+    // dlclose(gameHandle);
+    // return (0);
+
+
+
+
+
+
+
+
     // const std::vector<InitTab> tabInit({InitTab(' ', 0, 0, "none.png"), InitTab('#', 4, 4, "none.png")});
     // std::vector<std::vector<char>> map;
     // for (int i = 0; i != 10; i++) {
@@ -62,6 +99,15 @@ int main(void)
     // }
     graphicClass = createIGraphics();
     gameClass = createIGames();
+    Input key = NONE;
+    graphicClass->init(gameClass->getInit());
+    while (atoi(gameClass->getLife().c_str()) > 0 && key != EXIT) {
+        key = graphicClass->getInput();
+        graphicClass->setLife(gameClass->getLife());
+        graphicClass->setScore(gameClass->getScore());
+        graphicClass->displayGame(gameClass->simulate(key));
+        usleep(100000);
+    }
     // testClass->init(tabInit);
     // do {
     //     testClass->displayGame(map);
