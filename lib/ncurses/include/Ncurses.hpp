@@ -33,10 +33,10 @@
 
 #ifdef __NCURSES_H
 
-#define KEY_UP_N KEY_UP
-#define KEY_DOWN_N KEY_DOWN
-#define KEY_LEFT_N KEY_LEFT
-#define KEY_RIGHT_N KEY_RIGHT
+#define KEY_DOWN_N 258
+#define KEY_UP_N 259
+#define KEY_LEFT_N 260
+#define KEY_RIGHT_N 261
 
 #undef KEY_UP
 #undef KEY_DOWN

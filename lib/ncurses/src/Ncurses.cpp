@@ -120,6 +120,16 @@ void Ncurses::init(const std::vector<InitTab> &tab)
     this->createWindow(NCURSES_SIZE_X, NCURSES_SIZE_Y);
 }
 
+void Ncurses::setScore(const std::string &score)
+{
+    this->_score = score;
+}
+
+void Ncurses::setLife(const std::string &life)
+{
+    this->_life = life;
+}
+
 Input Ncurses::getInput(void) const
 {
     int key = wgetch(this->_window);
@@ -132,14 +142,4 @@ Input Ncurses::getInput(void) const
         if (ncursesInput[index].key == key)
             return ncursesInput[index].input;
     return NONE;
-}
-
-void Ncurses::setScore(const std::string &score)
-{
-    this->_score = score;
-}
-
-void Ncurses::setLife(const std::string &life)
-{
-    this->_life = life;
 }
