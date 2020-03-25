@@ -12,24 +12,24 @@ all: $(NAME)
 $(NAME): core games graphicals
 
 core:
-	make -C ./core all
+	@ make -C ./core all
 
 games:
-	make -C ./games all
+	@ make -C ./games all
 
 graphicals:
-	make -C ./lib all
+	@ make -C ./lib all
 
 clean:
-	make -C ./core clean
-	make -C ./games clean
-	make -C ./lib clean
+	@ make -C ./core clean
+	@ make -C ./games clean
+	@ make -C ./lib clean
 
 fclean:
-	make -C ./core fclean
-	make -C ./games fclean
-	make -C ./lib fclean
+	@ make -C ./core fclean
+	@ make -C ./games fclean
+	@ make -C ./lib fclean
 
 re: fclean all
 
-.PHONY: clean fclean re core games graphicals
+.PHONY: all clean fclean re core games graphicals

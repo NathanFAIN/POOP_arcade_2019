@@ -22,7 +22,7 @@ RM	=	rm -f
 MV	= 	mv -f
 
 CPPFLAGS = -I ./include/ -I ./../
-CPPFLAGS += -W -Wall -Wextra -W -lncurses
+CPPFLAGS += -W -Wall -Wextra -lncurses
 
 all: $(NAME)
 
