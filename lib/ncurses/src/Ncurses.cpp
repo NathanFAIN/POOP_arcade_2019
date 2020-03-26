@@ -93,6 +93,7 @@ void Ncurses::displayGame(const std::vector<std::vector<char>> &map)
 void Ncurses::createWindow(const size_t &x, const size_t &y)
 {
     noecho();
+    cbreak();
     set_escdelay(0);
     curs_set(FALSE);
     this->_xSize = x;
@@ -137,7 +138,7 @@ Input Ncurses::getInput(void) const
                                                     {KEY_LEFT, KEY_LEFT_N}, {KEY_RIGHT, KEY_RIGHT_N}, \
                                                     {EXIT, KEY_ESC_N}, {PREV_GAME, '&'}, {NEXT_GAME, 195}, \
                                                     {PREV_GRAPH, '"'}, {NEXT_GRAPH, '\''}};
-
+    while (-1 != wgetch(this->_window));
     for (size_t index = 0; index != sizeof(ncursesInput) / sizeof(*ncursesInput); index++)
         if (ncursesInput[index].key == key)
             return ncursesInput[index].input;
