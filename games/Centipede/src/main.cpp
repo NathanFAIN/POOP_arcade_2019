@@ -7,6 +7,7 @@
 
 #include <dlfcn.h>
 #include "Centipede.hpp"
+#include <unistd.h>
 
 using IGraphicsCreator = IGraphics *(*)(void);
 using IGraphicsDestroyer = void (*)(IGraphics *);
@@ -62,6 +63,15 @@ int main(void)
     // }
     graphicClass = createIGraphics();
     gameClass = createIGames();
+    Input key = NONE;
+    graphicClass->init(gameClass->getInit());
+    while (atoi(gameClass->getLife().c_str()) > 0 && key != EXIT) {
+        key = graphicClass->getInput();
+        graphicClass->setLife(gameClass->getLife());
+        graphicClass->setScore(gameClass->getScore());
+        graphicClass->displayGame(gameClass->simulate(key));
+        usleep(100000);
+    }
     // testClass->init(tabInit);
     // do {
     //     testClass->displayGame(map);

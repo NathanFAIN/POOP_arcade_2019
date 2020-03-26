@@ -73,7 +73,7 @@ void Ncurses::displayGame(const std::vector<std::vector<char>> &map)
     for (std::vector<char> mapRow : map) {
         for (char c : mapRow) {
             wattron(this->_window, COLOR_PAIR(c));
-            wprintw(this->_window, "  ");
+            wprintw(this->_window, "%c%c", c, c);
             wattroff(this->_window, COLOR_PAIR(c));
         }
         wprintw(this->_window, "\n");

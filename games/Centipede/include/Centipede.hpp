@@ -33,6 +33,7 @@ class Centipede : public IGames {
         std::vector<std::array<int, 3>> _centipedes;
         std::vector<std::vector<char>> _map;
         const std::vector<InitTab> _tabInit;
+        bool _centipedeRight;
 };
 
 #endif /* !CENTIPEDE_HPP_ */
