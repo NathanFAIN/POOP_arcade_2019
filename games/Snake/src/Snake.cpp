@@ -43,7 +43,7 @@ InitTab(' ', 0, 0, "empty.png")})
     _life = 3;
     _direction = KEY_RIGHT;
     _head = {11, 12};
-    _tail = {11, 10};
+    _tail = {11, 9};
     for (int i = 0; i < 23; i++)
         tmp.push_back(' ');
     for (int i = 0; i < 23; i++)
@@ -54,6 +54,7 @@ InitTab(' ', 0, 0, "empty.png")})
         _map[0][i] = '#';
         _map[22][i] = '#';
     }
+    _map[11][9] = '>';
     _map[11][10] = '>';
     _map[11][11] = '>';
     _map[11][12] = 'o';
@@ -151,10 +152,11 @@ std::vector<std::vector<char>> Snake::restart(bool isWin)
         _life--;
     _direction = KEY_RIGHT;
     _head = {11, 12};
-    _tail = {11, 10};
+    _tail = {11, 9};
     for (int i = 1; i < 22; i++)
         for (int j = 1; j < 22; j++)
             _map[i][j] = ' ';
+    _map[11][9] = '>';
     _map[11][10] = '>';
     _map[11][11] = '>';
     _map[11][12] = 'o';

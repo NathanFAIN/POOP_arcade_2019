@@ -82,9 +82,6 @@ std::vector<std::vector<char>> Centipede::simulate(Input key)
         _player[1]++;
         _map[_player[0]][_player[1]] = 'P';
     }
-
-
-
     // new centipede
     if (!_centipedes.size() && !_toAppear) {
         _centipedeRight = !_centipedeRight;
@@ -135,9 +132,6 @@ std::vector<std::vector<char>> Centipede::simulate(Input key)
         _toAppear--;
         _centipedes.push_back({0, 19, _centipedeRight});
     }
-
-
-
     // lazer
     if (_lazer[0] < 0)
         _lazer = _player;
@@ -146,7 +140,7 @@ std::vector<std::vector<char>> Centipede::simulate(Input key)
     for (int i = 0; i < 3; i++) {
         _lazer[0]--;
         if (_lazer[0] < 0)
-            break;
+            _lazer = _player;
         else if (_map[_lazer[0]][_lazer[1]] >= '!' && _map[_lazer[0]][_lazer[1]] <= '%') {
             _map[_lazer[0]][_lazer[1]]--;
             if (_map[_lazer[0]][_lazer[1]] == ' ')
@@ -165,7 +159,7 @@ std::vector<std::vector<char>> Centipede::simulate(Input key)
             _lazer[0] = -1;
         }
     }
-    if (_lazer[0] >= 0)
+    if (_lazer[0] >= 0 && _map[_lazer[0]][_lazer[1]] == ' ')
         _map[_lazer[0]][_lazer[1]] = '|';
     return _map;
 }
