@@ -79,7 +79,7 @@ void Sfml::init(const std::vector<InitTab> &tab)
     for (auto i = tab.begin(); i != tab.end(); i++) {
         this->_texture[i->getCharacter()].loadFromFile(i->getPath());
         this->_sprite[i->getCharacter()].setTexture(this->_texture[i->getCharacter()]);
-        this->_sprite[i->getCharacter()].setScale(50.f / this->_texture[i->getCharacter()].getSize().x, 50.f / this->_texture[i->getCharacter()].getSize().y);
+        this->_sprite[i->getCharacter()].setScale(30.f / this->_texture[i->getCharacter()].getSize().x, 30.f / this->_texture[i->getCharacter()].getSize().y);
     }
     createWindow(SFML_SIZE_X, SFML_SIZE_Y);
 }
