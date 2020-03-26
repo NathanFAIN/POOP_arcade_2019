@@ -32,6 +32,9 @@ Sfml::Sfml()
     this->_life = "";
     this->_score = "";
     this->_window = nullptr;
+    this->_xSize = 0;
+    this->_ySize = 0;
+    this->_blockScale = 30.f;
 }
 
 Sfml::~Sfml()
@@ -42,7 +45,7 @@ Sfml::~Sfml()
 
 void Sfml::displayGame(const std::vector<std::vector<char>> &map)
 {
-    sf::Vector2f pos = {0, 0};
+    sf::Vector2f pos = {100, 100};
     sf::Event event;
 
     while (this->_window->pollEvent(event)) {
@@ -51,9 +54,19 @@ void Sfml::displayGame(const std::vector<std::vector<char>> &map)
             return;
         }
     }
+    if (this->_ySize != map.size() || this->_xSize != map[0].size()) {
+        this->_ySize = map.size();
+        this->_xSize = map[0].size();
+        this->_blockScale = (SFML_DEFAULT_SIZE_X - 100) / this->_xSize;
+        if (this->_blockScale > (SFML_DEFAULT_SIZE_Y - 100) / this->_ySize)
+            this->_blockScale = (SFML_DEFAULT_SIZE_Y - 100) / this->_ySize;
+        this->rescale();
+    }
     this->_window->clear(sf::Color::Black);
+    _scoreText.setString(std::string("Score : " + this->_score));
+    _lifeText.setString(std::string("Life    : " + this->_life));
     for (std::vector<char> mapRow : map) {
-        pos.x = 0;
+        pos.x = 100;
         for (char c : mapRow) {
             this->_sprite[c].setPosition(pos);
             this->_window->draw(this->_sprite[c]);
@@ -61,7 +74,16 @@ void Sfml::displayGame(const std::vector<std::vector<char>> &map)
         }
         pos.y += this->_texture[mapRow[0]].getSize().y * this->_sprite[mapRow[0]].getScale().y;
     }
+    this->_window->draw(this->_lifeText);
+    this->_window->draw(this->_scoreText);
     this->_window->display();
+}
+
+void Sfml::rescale(void)
+{
+    for (auto i = this->_texture.begin(); i != this->_texture.end(); i++) {
+        this->_sprite[i->first].setScale(this->_blockScale / i->second.getSize().x, this->_blockScale / i->second.getSize().y);
+    }
 }
 
 void Sfml::createWindow(const size_t &xSize, const size_t &ySize)
@@ -69,19 +91,25 @@ void Sfml::createWindow(const size_t &xSize, const size_t &ySize)
     if (this->_window)
         delete this->_window;
     this->_window = new sf::RenderWindow(sf::VideoMode(xSize, ySize), "Arcade");
+    this->_font.loadFromFile("font.TTF");
+    _scoreText.setString("");
+    _scoreText.setFont(this->_font);
+    _scoreText.setCharacterSize(25);
+    _scoreText.setPosition(sf::Vector2f(25, 0));
+    _lifeText.setString("");
+    _lifeText.setFont(this->_font);
+    _lifeText.setCharacterSize(25);
+    _lifeText.setPosition(sf::Vector2f(25, 50));
 }
 
 void Sfml::init(const std::vector<InitTab> &tab)
 {
-    sf::Texture texture;
-    sf::Sprite sprite;
-
     for (auto i = tab.begin(); i != tab.end(); i++) {
         this->_texture[i->getCharacter()].loadFromFile(i->getPath());
         this->_sprite[i->getCharacter()].setTexture(this->_texture[i->getCharacter()]);
-        this->_sprite[i->getCharacter()].setScale(30.f / this->_texture[i->getCharacter()].getSize().x, 30.f / this->_texture[i->getCharacter()].getSize().y);
     }
-    createWindow(SFML_SIZE_X, SFML_SIZE_Y);
+    rescale();
+    createWindow(SFML_DEFAULT_SIZE_X, SFML_DEFAULT_SIZE_Y);
 }
 
 void Sfml::setScore(const std::string &score)

@@ -36,8 +36,8 @@
 #include "IGraphics.hpp"
 #include "InitTab.hpp"
 
-#define SFML_SIZE_X 1280
-#define SFML_SIZE_Y 720
+#define SFML_DEFAULT_SIZE_X 1280
+#define SFML_DEFAULT_SIZE_Y 720
 
 extern "C" void SfmlConstructor(void) __attribute__((constructor));
 extern "C" void SfmlDestructor(void) __attribute__((destructor));
@@ -54,6 +54,7 @@ class Sfml : public IGraphics {
 	protected:
 	private:
 		void createWindow(const size_t &xSize, const size_t &ySize);
+		void rescale(void);
 		struct SfmlInput {
 			Input input;
 			sf::Keyboard::Key key;
@@ -63,6 +64,12 @@ class Sfml : public IGraphics {
 		sf::RenderWindow *_window;
 		std::string _score;
 		std::string _life;
+		sf::Text _scoreText;
+		sf::Text _lifeText;
+		size_t _xSize;
+		size_t _ySize;
+		double _blockScale;
+		sf::Font _font;
 };
 
 #endif

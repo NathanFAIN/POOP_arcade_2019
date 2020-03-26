@@ -28,6 +28,7 @@ all: $(NAME)
 
 test: re
 	  @ make re -C ../../lib/ncurses
+	  @ make re -C ../../lib/sfml
 	  @ $(CC) $(TEST_SRC) -o test -ldl $(CPPFLAGS)
 	  @ echo "\033[1;34mBinary : \033[1;32mtest\033[1;34m created sucesfully.\033[0m"
 	  @ export LD_LIBRARY_PATH=$(PWD) && ./test
