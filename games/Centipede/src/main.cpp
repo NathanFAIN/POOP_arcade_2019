@@ -27,7 +27,7 @@ int main(void)
     IGamesCreator createIGames;
     IGamesDestroyer destroyIGames;
 
-    graphicHandle = dlopen("../../lib/libncurses.so", RTLD_LAZY);
+    graphicHandle = dlopen("../../lib/libsfml.so", RTLD_LAZY);
     if (!graphicHandle) {
         std::cerr << "ERROR: Invalid file.\n";
         return (84);
