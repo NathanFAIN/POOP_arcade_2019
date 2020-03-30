@@ -22,8 +22,8 @@ int main(void)
         std::cerr << "ERROR: Invalid file.\n";
         return (84);
     }
-    createIGraphics = reinterpret_cast<IGraphicsCreator>(dlsym(handle, "createIGraphics"));
-    destroyIGraphics = reinterpret_cast<IGraphicsDestroyer>(dlsym(handle, "destroyIGraphics"));
+    createIGraphics = reinterpret_cast<IGraphicsCreator>(dlsym(handle, "createInterface"));
+    destroyIGraphics = reinterpret_cast<IGraphicsDestroyer>(dlsym(handle, "destroyInterface"));
     if (dlerror() || !createIGraphics || !destroyIGraphics) {
         std::cerr << "ERROR: Function not found.\n";
         dlclose(handle);

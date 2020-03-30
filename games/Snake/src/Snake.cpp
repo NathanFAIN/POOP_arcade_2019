@@ -17,12 +17,12 @@ extern "C" void SnakeDestructor(void)
     std::cout << "Snake library left." << std::endl;
 }
 
-extern "C" Snake *createIGames()
+extern "C" Snake *createInterface()
 {
     return new Snake();
 }
 
-extern "C" void destroyIGames(Snake *object)
+extern "C" void destroyInterface(Snake *object)
 {
     delete object;
 }

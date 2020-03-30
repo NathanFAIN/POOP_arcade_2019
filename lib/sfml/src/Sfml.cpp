@@ -17,12 +17,12 @@ extern "C" void SfmlDestructor(void)
     std::cout << "Sfml library left." << std::endl;
 }
 
-extern "C" IGraphics *createIGraphics()
+extern "C" IGraphics *createInterface()
 {
     return new Sfml;
 }
 
-extern "C" void destroyIGraphics(IGraphics *object)
+extern "C" void destroyInterface(IGraphics *object)
 {
     delete object;
 }

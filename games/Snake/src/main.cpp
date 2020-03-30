@@ -27,13 +27,13 @@ int main(void)
     IGamesCreator createIGames;
     IGamesDestroyer destroyIGames;
 
-    graphicHandle = dlopen("../../lib/libsfml.so", RTLD_LAZY);
+    graphicHandle = dlopen("../../lib/libncurses.so", RTLD_LAZY);
     if (!graphicHandle) {
         std::cerr << "ERROR: Invalid file.\n";
         return (84);
     }
-    createIGraphics = reinterpret_cast<IGraphicsCreator>(dlsym(graphicHandle, "createIGraphics"));
-    destroyIGraphics = reinterpret_cast<IGraphicsDestroyer>(dlsym(graphicHandle, "destroyIGraphics"));
+    createIGraphics = reinterpret_cast<IGraphicsCreator>(dlsym(graphicHandle, "createInterface"));
+    destroyIGraphics = reinterpret_cast<IGraphicsDestroyer>(dlsym(graphicHandle, "destroyInterface"));
     if (dlerror() || !createIGraphics || !destroyIGraphics) {
         std::cerr << "ERROR: Function not found.\n";
         dlclose(graphicHandle);
@@ -45,8 +45,8 @@ int main(void)
         std::cerr << "ERROR: Invalid file.\n";
         return (84);
     }
-    createIGames = reinterpret_cast<IGamesCreator>(dlsym(gameHandle, "createIGames"));
-    destroyIGames = reinterpret_cast<IGamesDestroyer>(dlsym(gameHandle, "destroyIGames"));
+    createIGames = reinterpret_cast<IGamesCreator>(dlsym(gameHandle, "createInterface"));
+    destroyIGames = reinterpret_cast<IGamesDestroyer>(dlsym(gameHandle, "destroyInterface"));
     if (dlerror() || !createIGames || !destroyIGames) {
         std::cerr << "ERROR: Function not found.\n";
         dlclose(gameHandle);

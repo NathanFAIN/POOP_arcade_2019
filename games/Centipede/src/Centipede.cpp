@@ -17,12 +17,12 @@ extern "C" void CentipedeDestructor(void)
     std::cout << "Centipede library left." << std::endl;
 }
 
-extern "C" Centipede *createIGames()
+extern "C" Centipede *createInterface()
 {
     return new Centipede();
 }
 
-extern "C" void destroyIGames(Centipede *object)
+extern "C" void destroyInterface(Centipede *object)
 {
     delete object;
 }

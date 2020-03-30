@@ -17,12 +17,12 @@ extern "C" void NcursesDestructor(void)
     std::cout << "Ncurses library left." << std::endl;
 }
 
-extern "C" IGraphics *createIGraphics()
+extern "C" IGraphics *createInterface()
 {
     return new Ncurses;
 }
 
-extern "C" void destroyIGraphics(IGraphics *object)
+extern "C" void destroyInterface(IGraphics *object)
 {
     delete object;
 }
