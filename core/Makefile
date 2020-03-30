@@ -15,17 +15,17 @@ OBJS		=	$(SRCS:.cpp=.o)
 
 NBR_OF_FILES := $(words $(SRCS))
 
-CC			=	g++
+CXX			=	g++
 
 RM          =    rm -f
 
-CPPFLAGS	=	-W -Wall -Wextra
+CPPFLAGS	=	-W -Wall -Wextra -I ./include/ -I ./../ -ldl
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
 		@ echo "\033[1;36m[ FILES COMPILED ] \033[0m \033[1;34m$(NBR_OF_FILES)\033[0m"
-		@ $(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+		@ $(CXX) $(OBJS) -o $(NAME) $(CPPFLAGS) 
 		@ echo "\033[1;34mBinary : \033[1;32m$(NAME)\033[1;34m created sucesfully.\033[0m"
 
 clean:
@@ -39,6 +39,6 @@ fclean:	clean
 
 %.o:	%.cpp
 	@ echo "\033[1;34m[ OK ]\033[0m Compiling" $<
-	@ $(CC) -o $@ -c $< $(CPPFLAGS)
+	@ $(CXX) -o $@ -c $< $(CPPFLAGS)
 
 re: fclean all

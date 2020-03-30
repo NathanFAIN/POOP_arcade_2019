@@ -11,13 +11,14 @@
 #include <string>
 #include <algorithm>
 #include <iostream>
-#include <dlfcn.h>
+#include <unistd.h>
 // #include <unistd.h>
 // #include <stdlib.h>
 // #include <fcntl.h>
 #include "Info.hpp"
 #include "../../exception/include/Exception.hpp"
-#include"../../lib/InitTab.hpp"
+#include "../../lib/InitTab.hpp"
+#include "../include/LibManager.hpp"
 
 #ifdef __NCURSES_H
 #undef KEY_UP
@@ -25,6 +26,7 @@
 #undef KEY_LEFT
 #undef KEY_RIGHT
 #endif
+
 
 enum __attribute__((packed)) Input {
     NONE = -1,
@@ -40,6 +42,9 @@ enum __attribute__((packed)) Input {
     NEXT_GRAPH
 };
 
+class IGraphics;
+class IGames;
+
 #include "../../games/IGame.hpp"
 #include "../../lib/IGraphics.hpp"
 
@@ -48,34 +53,30 @@ class Core {
         Core();
         ~Core();
 
-        enum __attribute((packed)) LibType {
-            GAME,
-            GRAPHICAL
-        };
+        // enum __attribute__((packed)) LibType {
+        //     GAME,
+        //     GRAPHICAL
+        // };
 
         void MainLoop();
 
         const Info &getInfo(void) const;
         void setInfo(Info info);//should never happen
-        void *getGraphic(void) const;
-        void setGraphic(void *lib);
-        void *getGame(void) const;
-        void setGames(void *game);
-
-
-        void *openLib(const std::string &pathLib);
-        void closeLib(void *lib);
+        IGraphics *getGraphic(void) const;
+        void setGraphic(const std::string &libPath);
+        IGames *getGame(void) const;
+        void setGames(const std::string &libPath);
 
         const std::string getGraphicName(void) const;
         const std::string getGameName(void) const;
 
-        const std::string nameToPath(const std::string &name, LibType type) const;
+        // const std::string nameToPath(const std::string &name, LibType type) const;
 
     protected:
     private:
         Info _info;
-        void *_Graphic;
-        void *_Game;
+        IGraphics *_Graphic;
+        IGames *_Game;
 };
 
 std::ostream &operator<<(std::ostream &out, Core core);

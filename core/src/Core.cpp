@@ -18,9 +18,12 @@ Core::~Core()
 
 //------------------Main-Loop----------------------
 void Core::MainLoop() {
-    // static_cast<IGames *>(this->_Game)->init();
-    // static_cast<IGraphics *>(this->_Graphic)->init(static_cast<IGames *>(this->_Game)->getInit());
-    // static_cast<IGraphics *>(this->_Graphic)->displayMenu ??
+    // static_cast<IGames *>(this->_Game)->displayMenu();
+    this->_Graphic->init(this->_Game->getInit());
+    while (1) {
+        usleep(100000);
+        this->_Graphic->displayGame(this->_Game->simulate(this->_Graphic->getInput()));
+    }
 }
 
 //--------------getters-&-setters-------------------
@@ -34,41 +37,30 @@ void Core::setInfo(Info info)//should never happen
     this->_info = info;
 }
 
-void *Core::getGraphic(void) const
+IGraphics *Core::getGraphic(void) const
 {
     return (this->_Graphic);
 }
 
-void Core::setGraphic(void *lib)
+void Core::setGraphic(const std::string &libPath)
 {
     if (this->_Graphic != nullptr) {
-        this->closeLib(this->_Graphic);
+        LibManager<IGraphics>::closeLib(this->_Graphic);
     }
-    this->_Graphic = lib;
+    this->_Graphic = LibManager<IGraphics>::openLib(libPath);
 }
 
-void *Core::getGame(void) const
+IGames *Core::getGame(void) const
 {
     return (this->_Game);
 }
 
-void Core::setGames(void *game)
+void Core::setGames(const std::string &libPath)
 {
     if (this->_Game != nullptr) {
-        this->closeLib(this->_Game);
+        LibManager<IGames>::closeLib(this->_Game);
     }
-    this->_Game = game;
-}
-
-//-----------lib-handling-----------------------
-void *Core::openLib(const std::string &pathLib)
-{
-    void *handle;
-}
-
-void Core::closeLib(void *lib)
-{
-    // dlclose(lib);
+    this->_Game = LibManager<IGames>::openLib(libPath);
 }
 
 //------------Info-interactions------------------
@@ -89,11 +81,11 @@ const std::string Core::getGameName(void) const
 }
 
 
-//--------------Utilities--------------------------
-const std::string Core::nameToPath(const std::string &name, LibType type) const
-{
-    return ((type == this->GAME ? "./games/lib_arcade_" : "./lib/lib_arcade_") + name + ".so");
-}
+// //--------------Utilities--------------------------
+// const std::string Core::nameToPath(const std::string &name, LibType type) const
+// {
+//     return ((type == this->GAME ? "./games/lib_arcade_" : "./lib/lib_arcade_") + name + ".so");
+// }
 
 //--------------Overload---------------------------
 std::ostream &operator<<(std::ostream &out, Core core)

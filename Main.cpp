@@ -60,7 +60,8 @@ int main(int ac, char **av)
     }
     Core core;
     std::cout << core;
-    core.setGraphic(core.openLib(av[1]));
+    core.setGraphic(av[1]);
+    core.setGames("games/libsnake.so");
     core.MainLoop();
 
     //---------leak-memory-checker----------
