@@ -33,7 +33,7 @@ int main(void)
         return (84);
     }
     createIGraphics = reinterpret_cast<IGraphicsCreator>(dlsym(graphicHandle, "createInterface"));
-    destroyIGraphics = reinterpret_cast<IGraphicsDestroyer>(dlsym(graphicHandle, "destroyInterface"));
+    destroyIGraphics = reinterpret_cast<IGraphicsDestroyer>(dlsym(graphicHandle, "destroyIGraphics"));
     if (dlerror() || !createIGraphics || !destroyIGraphics) {
         std::cerr << "ERROR: Function not found.\n";
         dlclose(graphicHandle);
@@ -46,7 +46,7 @@ int main(void)
         return (84);
     }
     createIGames = reinterpret_cast<IGamesCreator>(dlsym(gameHandle, "createInterface"));
-    destroyIGames = reinterpret_cast<IGamesDestroyer>(dlsym(gameHandle, "destroyInterface"));
+    destroyIGames = reinterpret_cast<IGamesDestroyer>(dlsym(gameHandle, "destroyIGames"));
     if (dlerror() || !createIGames || !destroyIGames) {
         std::cerr << "ERROR: Function not found.\n";
         dlclose(gameHandle);
