@@ -51,11 +51,13 @@ class LibManager {
             std::cerr << except.getMessage() << std::endl;
             exit(84);
         }
+        dlclose(lib);
     }
 
-    static void closeLib(T *lib)
+    static void closeLib(T **lib)
     {
-        dlclose(lib);
+        delete *lib;
+        *lib = nullptr; 
     }
 
     protected:

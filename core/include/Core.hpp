@@ -12,9 +12,7 @@
 #include <algorithm>
 #include <iostream>
 #include <unistd.h>
-// #include <unistd.h>
-// #include <stdlib.h>
-// #include <fcntl.h>
+#include <dirent.h>
 #include "Info.hpp"
 #include "../../exception/include/Exception.hpp"
 #include "../../lib/InitTab.hpp"
@@ -53,12 +51,9 @@ class Core {
         Core();
         ~Core();
 
-        // enum __attribute__((packed)) LibType {
-        //     GAME,
-        //     GRAPHICAL
-        // };
-
         void MainLoop();
+
+        void initInfoLib(void);
 
         const Info &getInfo(void) const;
         void setInfo(Info info);//should never happen
@@ -70,13 +65,14 @@ class Core {
         const std::string getGraphicName(void) const;
         const std::string getGameName(void) const;
 
-        // const std::string nameToPath(const std::string &name, LibType type) const;
+        void closeLibs(void);
 
     protected:
     private:
         Info _info;
         IGraphics *_Graphic;
         IGames *_Game;
+        bool _isMenu;
 };
 
 std::ostream &operator<<(std::ostream &out, Core core);
